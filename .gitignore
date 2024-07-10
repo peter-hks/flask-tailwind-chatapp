@@ -130,9 +130,7 @@ dmypy.json
 
 #custom
 .flask_openai/
-node_modules/
-package-lock.json
-package.json
+node_modules/s
 database.db
 embeddings/
 flask_session/
