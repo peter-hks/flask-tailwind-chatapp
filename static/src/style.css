@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(204 0 51 / var(--tw-bg-opacity));
+}
+
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(204 0 51 / var(--tw-text-opacity));
+}
+
+.focus-within\:ring-red-600:focus-within {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(204 0 51 / var(--tw-ring-opacity));
+}
+
+.hover\:text-red-600:hover {
+  --tw-text-opacity: 1;
+  color: rgb(204 0 51 / var(--tw-text-opacity));
+}
+
+.group:hover .group-hover\:border-red-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(204 0 51 / var(--tw-border-opacity));
+}
+
+.group:hover .group-hover\:text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(204 0 51 / var(--tw-text-opacity));
+}
+
+.message-wrap {
+  hyphens: manual;
+}
+/* #messagebox {
+    white-space: pre-wrap;
+    word-break: break-all;
+    hyphens: manual;
+    max-width: calc(100vw - 355px); 
+    /* attempting to set width for wrapping ^^ */
+/* } */
+
+/* #chatlog {
+    border-bottom-width:  100;
+    border-bottom-color: white;
+  }
+  
+  #chatbar {
+    position: fixed;
+    bottom: 0;
+    left: 280;
+    width: calc(100vw - 280px);
+    background-color: #f1f1f1;
+    padding: 20px;
+    box-sizing: border-box;
+  } */
+
+.sm\:py-33 {
+  padding-top: 2rem;
+  padding-bottom: 14rem;
+}

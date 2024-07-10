@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="../static/css/main.css" rel="stylesheet">
+    <title>Upload Document</title>
+</head>
+<style>
+    .fa-solid {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+</style>
+{% block content %}
+<div class="bg-white rounded-3xl h-full">
+    <!-- Top Section -->
+    <div class="border-b-2 border-gray-200 flex flex-row justify-between py-2 pr-6">
+        <div class="text-2xl font-semibold p-3 pl-6">
+            Documents
+        </div>
+        <div class="flex flex-row">
+            <div class="flex bg-gray-200 rounded-lg m-2 h-fit align-middle">
+                <!-- Search Box -->
+                <form class="relative flex flex-1" action="#" method="GET">
+                    <label for="search-field" class="sr-only">Search</label>
+                    <i class="fa-solid fa-magnifying-glass px-3"></i>
+                    <input id="search-field"
+                        class="block h-full w-full border-0 pl-2 py-2 pr-0 text-sm bg-transparent text-gray-900 placeholder:text-gray-500 focus:ring-0 sm:text-sm"
+                        placeholder="Search" type="search" name="search">
+                </form>
+            </div>
+            <div class="flex border-gray-200 border-2 border-solid m-2 rounded-md align-middle h-fit">
+                <i class="fa-regular fa-bell py-2 px-3 self-center"></i>
+            </div>
+        </div>
+    </div>
+    <!-- Main Section -->
+    <div class="p-8">
+        <div class="font-semibold pb-2">Upload Files</div>
+        <!-- Upload section and progress bar -->
+        <div>
+            <!-- Upload files square -->
+            <div class="flex flex-col items-center bg-gray-200 rounded-lg w-5/12">
+                <span class="text-crimson text-8xl">
+                    <i class="fa-solid fa-upload "></i>
+                </span>
+                <div class="text-gray-500 text-sm">or</div>
+                <!-- <a>Browse Files</a> -->
+                <label
+                    class="flex flex-col w-32 border-4 bg-white border-solid border-gray-200 hover:border-crimson hover:border-2 hover:border-gray-300">
+                    <div class="flex flex-col items-center justify-center">
+                        <p class="pt-1 text-sm tracking-wider text-black group-hover:text-gray-600">
+                            Browse Files
+                        </p>
+                    </div>
+                    <input type="file" name="file" accept="application/pdf" />
+                </label>
+
+                <div class="text-gray-500 text-sm">Max file size: 20MB</div>
+                <div class="text-gray-500 text-sm">Supported files: PDF</div>
+            </div>
+            <!-- Progress Bars -->
+            <div>
+
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+</html>

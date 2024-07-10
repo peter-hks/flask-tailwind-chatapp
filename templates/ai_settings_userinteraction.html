@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link href="../static/css/main.css" rel="stylesheet" />
+  </head>
+
+  <style>
+    .fa-solid {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: right;
+    }
+  </style>
+
+  {% extends "ai_settings_layout.html" %} {% block content %}
+  <script>
+    /**
+     * auto submit form on checkbox click
+     * @param {Event} event - click event
+     * @returns {void}
+     */
+    function clickFn(event) {
+      const checkbox = event.currentTarget;
+      checkbox.value = checkbox.checked ? "ON" : "OFF";
+      const form = checkbox.currentTarget.closest("form");
+      if (form) form.submit();
+    }
+  </script>
+
+  <div class="p-10 flex flex-col gap-6 overflow-y-scroll max-h-full">
+    <div>
+      <div class="text-2xl font-semibold text-crimson pb-1">
+        User Interaction
+      </div>
+      <div>
+        AgentAI can maintain a robust security posture that protects data and
+        integrity of user interactions.
+      </div>
+    </div>
+    <!--Interaction-->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-row gap-1 items-center justify-between">
+        <div>
+          <div class="text-xl font-semibold text-black">
+            Interaction Customization
+          </div>
+          <div class="text-sm text-gray-500">
+            Tailor how AgentAI communicates with its users.
+          </div>
+        </div>
+        <div class="float-right">
+          <label for="toggle1" class="flex cursor-pointer">
+            <div
+              id="toggleBackground1"
+              class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+            >
+              <input id="toggle1" type="checkbox" class="hidden" />
+
+              <div
+                class="toggle__line w-10 h-4 rounded-full shadow-inner"
+              ></div>
+              <div
+                id="toggleDot1"
+                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+              ></div>
+            </div>
+            <div class="toggleText1 pl-2 text-gray-700 font-medium">Off</div>
+          </label>
+        </div>
+      </div>
+      <div id="inputContainer1" class="hidden">
+        <div class="flex flex-col gap-2 w-full">
+          <label htmlFor="text" class="block font-semibold">Greeting</label>
+          <form class="flex flex-row" method="post">
+            <input type="hidden" name="key" value="USER_GREETING_GUIDELINES" />
+            <input type="hidden" name="key_type" value="prompt" />
+            <input
+              type="text"
+              name="value"
+              id="text"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+              placeholder="{{ current_settings | selectattr('key', 'equalto', 'USER_GREETING_GUIDELINES') | map(attribute='value') | first}}"
+            />
+            <button
+              type="submit"
+              class="mt-3 inline-flex w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+            >
+              Save
+            </button>
+          </form>
+          <label htmlFor="text" class="block font-semibold"
+            >Conclusion Statement</label
+          >
+          <form class="flex flex-row" method="post">
+            <input type="hidden" name="key" value="USER_CONCLUSION_STATEMENT" />
+            <input type="hidden" name="key_type" value="prompt" />
+            <input
+              type="text"
+              name="value"
+              id="text"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+              placeholder="{{ current_settings | selectattr('key', 'equalto', 'USER_CONCLUSION_STATEMENT') | map(attribute='value') | first}}"
+            />
+            <button
+              type="submit"
+              class="mt-3 inline-flex w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+            >
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--Reponse Handling-->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-row gap-1 items-center justify-between">
+        <div>
+          <div class="text-xl font-semibold text-black">Response Handling</div>
+          <div class="text-sm text-gray-500">
+            Tailor how AgentAI responds to its users.
+          </div>
+        </div>
+        <div>
+          <label for="toggle2" class="flex cursor-pointer">
+            <div
+              id="toggleBackground2"
+              class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+            >
+              <input id="toggle2" type="checkbox" class="hidden" />
+
+              <div
+                class="toggle__line w-10 h-6 rounded-full shadow-inner"
+              ></div>
+              <div
+                id="toggleDot2"
+                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+              ></div>
+            </div>
+            <div class="toggleText2 pl-2 text-gray-700 font-medium">Off</div>
+          </label>
+        </div>
+      </div>
+      <!--Response Templates-->
+      <div id="inputContainer2" class="hidden flex flex-col gap-3">
+        <label class="font-semibold">Response Templates</label>
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_RESPONSE_TEMPLATE_1" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            name="value"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_RESPONSE_TEMPLATE_1') | map(attribute='value') | first) or 'text input' }}"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_RESPONSE_TEMPLATE_2" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_RESPONSE_TEMPLATE_2') | map(attribute='value') | first) or 'text input' }}"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <div class="flex justify-center">
+          <button
+            class="rounded-md bg-crimson text-white px-4 py-2 text-sm text-semibold hover:bg-crimson-dark"
+          >
+            Add More
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!--Auto-Response Timing
+    <section class="flex flex-col gap-3">
+    <label class="font-semibold">Auto Response Timing</label>
+    <div class="flex flex-row w-6/12 pr-6">
+      <input
+        type="number"
+        name="text"
+        id="text"
+        class="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+        placeholder="Number Input"
+      />
+      <button
+        type="submit"
+        class="mt-3 inline-flex w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+      >
+        Save
+      </button>
+    </div>
+  </section>
+  -->
+    <!--Tone and Language-->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-1">
+        <div class="text-xl font-semibold text-black">Tone and Language</div>
+        <div class="text-sm text-gray-500">
+          Tailor AgentAIs automatic tone and censoring.
+        </div>
+      </div>
+      <div class="flex gap-4 items-start">
+        <div class="flex gap-4">
+          <form method="post">
+            <input type="hidden" name="key" value="USER_TONE_CASUAL" />
+            <input type="hidden" name="key_type" value="prompt" />
+            <input
+              type="hidden"
+              name="value"
+              value="use a casual tone when replying to users; please see CASUAL TONE GUIDELINES for a more detailed explaination if it exists within this prompt"
+            />
+            {% if (current_settings | selectattr('key', 'equalto',
+            'USER_TONE_CASUAL') | map(attribute='toggle') | first) == 'ON' %}
+            <button
+              class="inline-flex h-fit w-fit items-center justify-center rounded-md border border-black px-4 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              type="button"
+            >
+              casual
+            </button>
+            {% else %}
+
+            <button
+              class="inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              type="submit"
+            >
+              casual
+            </button>
+            {% endif %}
+          </form>
+          <form method="post">
+            <input type="hidden" name="key" value="USER_TONE_FORMAL" />
+            <input type="hidden" name="key_type" value="prompt" />
+            <input
+              type="hidden"
+              name="value"
+              value="use a formal tone when replying to users; please see FORMAL_TONE_GUIDELINES for a more detailed explaination if it exists within this prompt"
+            />
+
+            {% if current_settings | selectattr('key', 'equalto',
+            'USER_TONE_FORMAL') | map(attribute='toggle') | first == 'ON' %}
+            <button
+              class="inline-flex h-fit w-fit items-center justify-center rounded-md border border-black px-4 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              formal
+            </button>
+            {% else %}
+            <button
+              class="inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              type="submit"
+            >
+              formal
+            </button>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+      <div class="flex flex-col gap-3">
+        <!-- {{(current_settings | selectattr('key', 'equalto', 'USER TONE CASUAL') |
+        map(attribute='toggle') | first == 'ON') }} -->
+        <form class="flex flex-row w-full items-center" method="post">
+          {% if "ON" == current_settings | selectattr('key', 'equalto',
+          'USER_TONE_CASUAL') | map(attribute='toggle') | first %}
+
+          <input type="hidden" name="key" value="CASUAL_TONE_GUIDELINES" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'CASUAL_TONE_GUIDELINES') | map(attribute='value') | first) or 'casual text input' }}"
+            name="value"
+          ></textarea>
+
+          {% else %}
+
+          <input type="hidden" name="key" value="FORMAL_TONE_GUIDELINES" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'FORMAL_TONE_GUIDELINES') | map(attribute='value') | first ) or 'formal text input' }}"
+            name="value"
+          ></textarea>
+
+          {% endif %}
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!--Broad Question Handling-->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-row gap-1 items-center justify-between">
+        <div>
+          <div class="text-xl font-semibold text-black">
+            Broad Question Handling
+          </div>
+          <div class="text-sm text-gray-500">
+            Direct broad questions to an FAQ or knowledge base article.
+          </div>
+        </div>
+        <div>
+          <label for="toggle3" class="flex cursor-pointer">
+            <div
+              id="toggleBackground3"
+              class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+            >
+              <input id="toggle3" type="checkbox" class="hidden" />
+
+              <div
+                class="toggle__line w-10 h-6 rounded-full shadow-inner"
+              ></div>
+              <div
+                id="toggleDot3"
+                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+              ></div>
+            </div>
+            <div class="toggleText3 pl-2 text-gray-700 font-medium">Off</div>
+          </label>
+        </div>
+      </div>
+      <!--Broad Question Handling Inputs-->
+      <div id="inputContainer3" class="hidden flex flex-col gap-3">
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_BROAD_QUESTION_1" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            name="value"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_BROAD_QUESTION_1') | map(attribute='value') | first) or 'text input' }}"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_BROAD_QUESTION_2" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            name="value"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_BROAD_QUESTION_2') | map(attribute='value') | first) or 'text input' }}"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <div class="flex justify-center">
+          <button
+            class="rounded-md bg-crimson text-white px-4 py-2 text-sm text-semibold hover:bg-crimson-dark"
+          >
+            Add More
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!--Concise Answers Configuration-->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-row gap-1 items-center justify-between">
+        <div>
+          <div class="text-xl font-semibold text-black">
+            Concise Answers Configuration
+          </div>
+          <div class="text-sm text-gray-500">
+            Set character limit for AgentAI responses.
+          </div>
+        </div>
+        <div class="float-right">
+          <label for="toggle4" class="flex cursor-pointer">
+            <div
+              id="toggleBackground4"
+              class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+            >
+              <input id="toggle4" type="checkbox" class="hidden" />
+
+              <div
+                class="toggle__line w-10 h-4 rounded-full shadow-inner"
+              ></div>
+              <div
+                id="toggleDot4"
+                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+              ></div>
+            </div>
+            <div class="toggleText4 pl-2 text-gray-700 font-medium">Off</div>
+          </label>
+        </div>
+      </div>
+      <form id="inputContainer4" class="hidden" method="post">
+        <div class="flex flex-col gap-2 w-full">
+          <div class="flex flex-row w-2/6">
+            <input type="hidden" name="key" value="RESPONSE_CHARACTER_LIMIT" />
+            <input type="hidden" name="key_type" value="prompt" />
+            <input
+              type="number"
+              name="value"
+              id="text"
+              class="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+              placeholder="{{ current_settings | selectattr('key', 'equalto', 'RESPONSE_CHARACTER_LIMIT') | map(attribute='value') | first }}"
+            />
+            <button
+              type="submit"
+              class="mt-3 inline-flex w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!--Uncertainty Management-->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-row gap-1 items-center justify-between">
+        <div>
+          <div class="text-xl font-semibold text-black">
+            Uncertainty Management
+          </div>
+          <div class="text-sm text-gray-500">
+            Manage AgentAI uncertainty response.
+          </div>
+        </div>
+        <div>
+          <label for="toggle5" class="flex cursor-pointer">
+            <div
+              id="toggleBackground5"
+              class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+            >
+              <input id="toggle5" type="checkbox" class="hidden" />
+
+              <div
+                class="toggle__line w-10 h-6 rounded-full shadow-inner"
+              ></div>
+              <div
+                id="toggleDot5"
+                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+              ></div>
+            </div>
+            <div class="toggleText5 pl-2 text-gray-700 font-medium">Off</div>
+          </label>
+        </div>
+      </div>
+      <!--Uncertainty Management Inputs-->
+      <div id="inputContainer5" class="hidden flex flex-col gap-3">
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_UNCERTAINTY_1" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            name="value"
+            role="textbox"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_UNCERTAINTY_1') | map(attribute='value') | first) or 'text input' }}"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_UNCERTAINTY_2" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            name="value"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_UNCERTAINTY_2') | map(attribute='value') | first) or 'text input' }}"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <div class="flex justify-center">
+          <button
+            class="rounded-md bg-crimson text-white px-4 py-2 text-sm text-semibold hover:bg-crimson-dark"
+          >
+            Add More
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!--Off topic-management-->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-row gap-1 items-center justify-between">
+        <div>
+          <div class="text-xl font-semibold text-black">
+            Off-Topic Redirection
+          </div>
+          <div class="text-sm text-gray-500">
+            Detect and redirect off-topic questions.
+          </div>
+        </div>
+        <div>
+          <label for="toggle6" class="flex cursor-pointer">
+            <div
+              id="toggleBackground6"
+              class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+            >
+              <input id="toggle6" type="checkbox" class="hidden" />
+
+              <div
+                class="toggle__line w-10 h-6 rounded-full shadow-inner"
+              ></div>
+              <div
+                id="toggleDot6"
+                class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+              ></div>
+            </div>
+            <div class="toggleText6 pl-2 text-gray-700 font-medium">Off</div>
+          </label>
+        </div>
+      </div>
+      <!--Off-topic redirects Inputs-->
+      <div id="inputContainer6" class="hidden flex flex-col gap-3">
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_OFF_TOPIC_1" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_OFF_TOPIC_1') | map(attribute='value') | first) or 'text input' }}"
+            name="value"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <form class="flex flex-row w-full items-center" method="post">
+          <input type="hidden" name="key" value="USER_OFF_TOPIC_2" />
+          <input type="hidden" name="key_type" value="prompt" />
+          <textarea
+            id="autoresizing"
+            role="textbox"
+            class="block w-full rounded-md border-0 py-1.5 h-9 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ (current_settings | selectattr('key', 'equalto', 'USER_OFF_TOPIC_2') | map(attribute='value') | first) or 'text input' }}"
+          ></textarea>
+          <button
+            type="submit"
+            class="mt-3 inline-flex h-fit w-fit items-center justify-center rounded-md bg-gray-100 px-4 py-2 text-sm font-semibold text-crimson shadow-sm hover:bg-gray-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0 sm:w-auto"
+          >
+            Save
+          </button>
+        </form>
+        <div class="flex justify-center">
+          <button
+            class="rounded-md bg-crimson text-white px-4 py-2 text-sm text-semibold hover:bg-crimson-dark"
+          >
+            Add More
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      for (let i = 1; i < 7; i++) {
+        const toggleSwitch1 = document.getElementById(`toggle${i}`);
+        const toggleDot = document.getElementById(`toggleDot${i}`);
+        const toggleBg = document.getElementById(`toggleBackground${i}`);
+        const toggleText = document.querySelector(`.toggleText${i}`);
+        const inputContainer1 = document.getElementById(`inputContainer${i}`);
+        toggleSwitch1.addEventListener("change", function () {
+          if (this.checked) {
+            toggleText.textContent = "On";
+            toggleBg.classList.remove("bg-gray-400");
+            toggleBg.classList.remove("bg-red-500");
+            toggleBg.classList.add("bg-green-400");
+            toggleDot.classList.remove("left-0");
+            toggleDot.classList.add("right-0");
+            inputContainer1.classList.remove("hidden");
+          } else {
+            toggleText.textContent = "Off";
+            toggleDot.classList.remove("right-0");
+            toggleDot.classList.add("left-0");
+            toggleBg.classList.remove("bg-green-400");
+            inputContainer1.classList.add("hidden");
+          }
+        });
+      }
+      function autoExpand(textarea, limit = 200) {
+        if (typeof textarea === "string") {
+          textarea = document.getElementById(textarea);
+        }
+        textarea.oninput = function () {
+          textarea.style.height = "";
+          let height = Math.min(textarea.scrollHeight, limit);
+          textarea.style.height = height + "px";
+          adjustFollowingRows(textarea, height);
+        };
+      }
+
+      function adjustFollowingRows(textarea, height) {
+        const changing_element = textarea.id.startsWith("autoresizing");
+        changing_element.style.height = height + "px";
+      }
+
+      for (const element of document.getElementsByTagName("textarea")) {
+        autoExpand(element);
+      }
+    </script>
+    {% endblock %}
+  </div>
+</html>

@@ -1,0 +1,126 @@
+{% extends "layout.html" %} {% set active_page = "chat_history" %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <link href="../static/css/main.css" rel="stylesheet" />
+</head>
+{% block content %}
+
+<div class="bg-white md:rounded-3xl h-full max-h-full flex flex-col">
+  <!-- Top Section -->
+  <div
+    class="md:flex hidden border-b-2 border-gray-200 flex-row justify-between py-2 pr-6"
+  >
+    <div class="text-2xl font-semibold p-3 pl-6">Chat History</div>
+    <div class="flex flex-row items-center">
+      <div class="flex bg-gray-200 rounded-lg m-2 h-fit align-middle">
+        <!-- Search Box -->
+        <form class="relative flex flex-1" action="#" method="GET">
+          <label for="search-field" class="sr-only">Search</label>
+          <i class="fa-solid fa-magnifying-glass px-3"></i>
+          <input
+            id="search-field"
+            class="block h-full w-full border-0 pl-2 py-2 pr-0 text-sm bg-transparent text-gray-900 placeholder:text-gray-500 focus:ring-0 sm:text-sm"
+            placeholder="Search"
+            type="search"
+            name="search"
+          />
+        </form>
+      </div>
+      <div
+        class="flex border-gray-200 border-2 border-solid m-2 rounded-md align-middle h-fit"
+      >
+        <i class="fa-regular fa-bell py-2 px-3 self-center"></i>
+      </div>
+    </div>
+  </div>
+  <!-- Main Section -->
+  <div
+    class="flex flex-row h-full max-w-full overflow-y-auto max-h-full grow-0"
+  >
+    <!-- Left Preview -->
+    <div
+      class="flex flex-col m-4 pb-8 w-full md:gap-y-1 md:w-3/12 md:max-h-full md:overflow-y-auto md:min-h-0 md:grow-0 md:border-r-2"
+    >
+      {% for session in chat_sessions %}
+      <div class="pb-2 md:-pb-2">
+        <button
+          id="chatHistoryButton"
+          class="max-w-full mr-2 hover:bg-gray-100 active:bg-gray-100 rounded-xl text-black font-semibold p-2 text-left"
+          onclick="displaySession('{{ session.id }}')"
+        >
+          <div class="p-1">
+            {{ session.messages[0].user_message | truncate(20)}}
+          </div>
+          <div class="p-1 text-gray text-sm line-clamp-2">
+            {{ session.messages[0].ai_message | truncate(80)}}
+          </div>
+        </button>
+      </div>
+
+      {% endfor %}
+    </div>
+    <div class="md:flex hidden overflow-y-auto w-full">
+      {% for session in chat_sessions %}
+      <div
+        id="session-{{ session.id }}"
+        class="visible session-content space-y-4 overflow-y-auto overflow-x-hidden py-4 px-8"
+      >
+        <!-- <h3 class="text-lg font-medium mb-4 border-b pb-2">Session: {{ session.start_timestamp }}</h3> -->
+
+        {% for mess in session.messages %}
+        <!-- User Message -->
+        <div class="flex gap-x-3 justify-end mb-2">
+          <div
+            class="bg-gray-200 text-black p-4 rounded-xl max-w-75 message-wrap px-4 py-3"
+          >
+            {{ mess.user_message }}
+          </div>
+          <div class="bg-gray-200 rounded-full size-11"></div>
+        </div>
+
+        <!-- AgentAI Message -->
+        <div class="flex gap-x-3 mb-2">
+          <div class="grid bg-crimson rounded-full size-11">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c1/John_F._Kennedy_School_of_Government_Shield.svg/1200px-John_F._Kennedy_School_of_Government_Shield.svg.png"
+              alt="AgentAI"
+              width="25"
+              height="25"
+              class="justify-self-center self-center"
+            />
+          </div>
+          <div class="bg-crimson text-white rounded-xl max-w-75 px-4 py-3">
+            {{ mess.ai_message }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+  function displaySession(sessionId) {
+    console.log(`Displaying session: ${sessionId}`);
+    // Hide all session contents and remove active state from all buttons
+    document
+      .querySelectorAll(".session-content")
+      .forEach((div) => (div.style.display = "none"));
+    document
+      .querySelectorAll(".w-full.text-left")
+      .forEach((btn) => btn.classList.remove("bg-grey-100", "text-black"));
+
+    // Show the selected session content and mark the button as active
+    document.getElementById(`session-${sessionId}`).style.display = "block";
+    document
+      .querySelector(`[onclick="displaySession('${sessionId}')"]`)
+      .classList.add("bg-grey-100", "text-black");
+  }
+</script>
+{% endblock %}

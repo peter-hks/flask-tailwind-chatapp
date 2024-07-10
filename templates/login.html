@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="h-full bg-white">
+
+<head>
+    <title>Login</title>
+    <link href="../static/css/main.css" rel="stylesheet">
+</head>
+
+<body class="h-full">
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <!-- You can replace this with your own logo -->
+            <img class="mx-auto h-auto w-auto" src="../static/images/HKSIT logo black.png" alt="Your Company">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
+                account</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+            <!-- Flash Messages Display -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} mb-4 p-4 rounded border">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <!-- End of Flash Messages Display -->
+            
+            <form class="space-y-6" method="post">
+                {{ form.hidden_tag() }}
+                <div>
+                    {{ form.username.label(class="block text-sm font-medium leading-6 text-gray-900") }}
+                    <div class="mt-2">
+                        {{ form.username(class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1
+                        ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+                        focus:ring-indigo-600 sm:text-sm sm:leading-6") }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form.password.label(class="block text-sm font-medium leading-6 text-gray-900") }}
+                    <div class="mt-2">
+                        {{ form.password(class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1
+                        ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+                        focus:ring-indigo-600 sm:text-sm sm:leading-6") }}
+                    </div>
+                </div>
+
+                <div>
+                    {{ form.submit(class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm
+                    font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline
+                    focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600") }}
+                </div>
+            </form>
+
+            <!-- You can replace this with your own links or additional info -->
+            <p class="mt-10 text-center text-sm text-gray-500">
+                Not a member?
+                <a href="{{ url_for('register') }}"
+                    class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Register here</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

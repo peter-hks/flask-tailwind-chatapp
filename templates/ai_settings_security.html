@@ -1,0 +1,335 @@
+{% extends "ai_settings_layout.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link href="../static/css/main.css" rel="stylesheet" />
+  </head>
+
+  <style>
+    .fa-solid {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: right;
+    }
+  </style>
+
+  {% block content %}
+  <div class="p-10 flex flex-col gap-6 overflow-y-scroll h-full y-full">
+    <div>
+      <div class="text-2xl font-semibold text-crimson pb-1">
+        Security and Access
+      </div>
+      <div class="flex flex-col gap-1">
+        AgentAI can maintain a robust security posture that protects data and
+        integrity of user interactions.
+      </div>
+    </div>
+
+    <!-- Security Alerts -->
+    <section>
+      <form class="flex flex-col gap-3" method="post">
+        <div class="flex flex-row gap-1 items-center justify-between">
+          <div>
+            <div class="text-xl font-semibold flex items-center">
+              Security Alerts
+            </div>
+            <div class="text-sm text-gray-500">
+              Set up email alerts for suspicious activities.
+            </div>
+          </div>
+          <div class="float-right">
+            <div>
+              <label for="toggle1" class="flex cursor-pointer">
+                <div
+                  id="toggleBackground1"
+                  class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+                >
+                  <input id="toggle1" type="checkbox" class="hidden" />
+
+                  <div
+                    class="toggle__line w-10 h-4 rounded-full shadow-inner"
+                  ></div>
+                  <div
+                    id="toggleDot1"
+                    class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+                  ></div>
+                </div>
+                <div class="toggleText1 pl-2 text-gray-700 font-medium">
+                  Off
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Container for input fields -->
+        <div id="inputContainer1" class="hidden">
+          <input
+            type="text"
+            placeholder="Input email address here"
+            class="mb-4input-field block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+          />
+        </div>
+      </form>
+    </section>
+
+    <script>
+      const toggleSwitch1 = document.getElementById("toggle1");
+      const toggleDot1 = document.getElementById("toggleDot1");
+      const toggleBackground1 = document.getElementById("toggleBackground1");
+      const toggleText1 = document.querySelector(".toggleText1");
+      const inputContainer1 = document.getElementById("inputContainer1");
+
+      toggleSwitch1.addEventListener("change", function () {
+        if (this.checked) {
+          toggleText1.textContent = "On";
+          toggleBackground1.classList.remove("bg-gray-200");
+          toggleBackground1.classList.add("bg-green-400");
+          toggleDot1.classList.remove("left-0");
+          toggleDot1.classList.add("right-0");
+          inputContainer1.classList.remove("hidden");
+        } else {
+          toggleText1.textContent = "Off";
+          toggleDot1.classList.remove("right-0");
+          toggleDot1.classList.add("left-0");
+          toggleBackground1.classList.remove("bg-green-400");
+          toggleBackground1.classList.add("bg-gray-200");
+          inputContainer1.classList.add("hidden");
+        }
+      });
+    </script>
+
+    <!-- Audit Trails -->
+    <section>
+      <form class="flex flex-col gap-3" method="post">
+        <div class="flex flex-row gap-1 items-center justify-between">
+          <div>
+            <div class="text-xl font-semibold text-black">Audit Trails</div>
+            <div class="text-sm text-gray-500">
+              Activate or deactivate the logging of interactions for compliance
+              purposes.
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <div>
+              <label for="toggle2" class="flex cursor-pointer">
+                <div
+                  id="toggleBackground2"
+                  class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+                >
+                  <input id="toggle2" type="checkbox" class="hidden" />
+
+                  <div
+                    class="toggle__line w-10 h-4 rounded-full shadow-inner"
+                  ></div>
+                  <div
+                    id="toggleDot2"
+                    class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+                  ></div>
+                </div>
+                <div class="toggleText2 pl-2 text-gray-700 font-medium">
+                  Off
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Container for input fields -->
+        <div id="inputContainer2" class="hidden">
+          <input
+            type="text"
+            placeholder="Input email address here"
+            class="input-field block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+          />
+        </div>
+      </form>
+    </section>
+
+    <script>
+      const toggleSwitch2 = document.getElementById("toggle2");
+      const toggleDot2 = document.getElementById("toggleDot2");
+      const toggleBackground2 = document.getElementById("toggleBackground2");
+      const toggleText2 = document.querySelector(".toggleText2");
+      const inputContainer2 = document.getElementById("inputContainer2");
+
+      toggleSwitch2.addEventListener("change", function () {
+        if (this.checked) {
+          toggleText2.textContent = "On";
+          toggleBackground2.classList.remove("bg-gray-200");
+          toggleBackground2.classList.add("bg-green-400");
+          toggleDot2.classList.remove("left-0");
+          toggleDot2.classList.add("right-0");
+          inputContainer2.classList.remove("hidden");
+        } else {
+          toggleText2.textContent = "Off";
+          toggleDot2.classList.remove("right-0");
+          toggleDot2.classList.add("left-0");
+          toggleBackground2.classList.remove("bg-green-400");
+          toggleBackground2.classList.add("bg-gray-200");
+          inputContainer2.classList.add("hidden");
+        }
+      });
+    </script>
+
+    <section>
+      <!-- Anti-Prompt Hacking Measures -->
+      <form class="flex flex-col gap-3" method="post">
+        <div class="flex flex-row gap-1 items-center justify-between">
+          <div>
+            <div class="text-xl font-semibold text-black">
+              Anti-Prompt Hacking Measures
+            </div>
+            <div class="text-sm text-gray-500">
+              Enable safeguards against prompt hacking where the bot is tricked
+              into performing unauthorized actions.
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <div>
+              <label for="toggle3" class="flex cursor-pointer">
+                <div
+                  id="toggleBackground3"
+                  class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+                >
+                  <input id="toggle3" type="checkbox" class="hidden" />
+
+                  <div
+                    class="toggle__line w-10 h-4 rounded-full shadow-inner"
+                  ></div>
+                  <div
+                    id="toggleDot3"
+                    class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+                  ></div>
+                </div>
+                <div class="toggleText3 pl-2 text-gray-700 font-medium">
+                  Off
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Container for input fields -->
+        <div id="inputContainer3" class="hidden">
+          <input
+            type="text"
+            placeholder="Define patterns here"
+            class="input-field block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+          />
+        </div>
+      </form>
+    </section>
+
+    <script>
+      const toggleSwitch3 = document.getElementById("toggle3");
+      const toggleDot3 = document.getElementById("toggleDot3");
+      const toggleBackground3 = document.getElementById("toggleBackground3");
+      const toggleText3 = document.querySelector(".toggleText3");
+      const inputContainer3 = document.getElementById("inputContainer3");
+
+      toggleSwitch3.addEventListener("change", function () {
+        if (this.checked) {
+          toggleText3.textContent = "On";
+          toggleBackground3.classList.remove("bg-gray-200");
+          toggleBackground3.classList.add("bg-green-400");
+          toggleDot3.classList.remove("left-0");
+          toggleDot3.classList.add("right-0");
+          inputContainer3.classList.remove("hidden");
+        } else {
+          toggleText3.textContent = "Off";
+          toggleDot3.classList.remove("right-0");
+          toggleDot3.classList.add("left-0");
+          toggleBackground3.classList.remove("bg-green-400");
+          toggleBackground3.classList.add("bg-gray-200");
+          inputContainer3.classList.add("hidden");
+        }
+      });
+    </script>
+
+    <section>
+      <!-- Sensitive Data Handling -->
+      <form class="flex flex-col gap-3" method="post">
+        <div class="flex flex-row gap-1 items-center justify-between">
+          <div>
+            <div class="text-xl font-semibold text-black">
+              Sensitive Data Handling
+            </div>
+            <div class="text-sm text-gray-500">
+              Enable features that handle the detection and protection of
+              sensitive data, such as automatic redaction.
+            </div>
+          </div>
+          <div class="flex items-center justify-center">
+            <div>
+              <label for="toggle4" class="flex cursor-pointer">
+                <div
+                  id="toggleBackground4"
+                  class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"
+                >
+                  <input id="toggle4" type="checkbox" class="hidden" />
+
+                  <div
+                    class="toggle__line w-10 h-4 rounded-full shadow-inner"
+                  ></div>
+                  <div
+                    id="toggleDot4"
+                    class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0"
+                  ></div>
+                </div>
+                <div class="toggleText4 pl-2 text-gray-700 font-medium">
+                  Off
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Container for input fields -->
+        <div id="inputContainer4" class="hidden">
+          <input
+            type="text"
+            placeholder="Define regex formulas here"
+            class="input-field block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+          />
+        </div>
+      </form>
+    </section>
+
+    <script>
+      const toggleSwitch4 = document.getElementById("toggle4");
+      const toggleDot4 = document.getElementById("toggleDot4");
+      const toggleBackground4 = document.getElementById("toggleBackground4");
+      const toggleText4 = document.querySelector(".toggleText4");
+      const inputContainer4 = document.getElementById("inputContainer4");
+
+      toggleSwitch4.addEventListener("change", function () {
+        if (this.checked) {
+          toggleText4.textContent = "On";
+          toggleBackground4.classList.remove("bg-gray-200");
+          toggleBackground4.classList.add("bg-green-400");
+          toggleDot4.classList.remove("left-0");
+          toggleDot4.classList.add("right-0");
+          inputContainer4.classList.remove("hidden");
+        } else {
+          toggleText4.textContent = "Off";
+          toggleDot4.classList.remove("right-0");
+          toggleDot4.classList.add("left-0");
+          toggleBackground4.classList.remove("bg-green-400");
+          toggleBackground4.classList.add("bg-gray-200");
+          inputContainer4.classList.add("hidden");
+        }
+      });
+    </script>
+
+    <div class="h-10"></div>
+    <div class="h-10"></div>
+  </div>
+  {% endblock %}
+</html>

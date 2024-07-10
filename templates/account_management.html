@@ -1,0 +1,339 @@
+{% extends "layout.html" %} {% set active_page = "accounts" %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <link href="../static/css/main.css" rel="stylesheet" />
+</head>
+<style>
+  .fa-solid {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: right;
+  }
+</style>
+
+{% block content %}
+<div class="bg-white rounded-3xl h-full">
+  <!-- Top Section -->
+  <div
+    class="border-b-2 border-gray-200 flex flex-row justify-between py-2 pr-6"
+  >
+    <div class="text-2xl font-semibold p-3 pl-6">Account Management</div>
+    <div class="flex flex-row items-center">
+      <div class="flex bg-gray-200 rounded-lg m-2 h-fit align-middle">
+        <!-- Search Box -->
+        <form class="relative flex flex-1" action="#" method="GET">
+          <label for="search-field" class="sr-only">Search</label>
+          <i class="fa-solid fa-magnifying-glass px-3"></i>
+          <input
+            id="search-field"
+            class="block h-full w-full border-0 pl-2 py-2 pr-0 text-sm bg-transparent text-gray-900 placeholder:text-gray-500 focus:ring-0 sm:text-sm"
+            placeholder="Search"
+            type="search"
+            name="search"
+          />
+        </form>
+      </div>
+      <div
+        class="flex border-gray-200 border-2 border-solid m-2 rounded-md align-middle h-fit"
+      >
+        <i class="fa-regular fa-bell py-2 px-3 self-center"></i>
+      </div>
+    </div>
+  </div>
+  <!-- Main Section -->
+  <div class="p-10">
+    <div class="flex flex-row justify-between items-center">
+      <div class="flex flex-col gap-y-2">
+        <div class="text-xl font-medium">User Management</div>
+        <div class="text-xs text-gray-500">4 Users Found</div>
+      </div>
+      <!--Add User Button-->
+      <button
+        onClick="openModal('addUser')"
+        class="flex gap-x-3 bg-crimson hover:bg-crimson-dark items-center text-md text-white rounded-xl px-3 h-fit py-2"
+      >
+        <span class="fa-solid fa-plus fa-md"></span>
+        Add User
+      </button>
+    </div>
+    <!-- Users Table -->
+    <div class="py-5">
+      <table class="min-w-full divide-y divide-black overflow-x-auto w-full">
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            ></th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Name
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Username
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Role
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Permission
+            </th>
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="bg-white divide-y divide-black">
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap w-fit">
+              <div class="flex-shrink-0 h-10 w-10">
+                <img
+                  class="h-10 w-10 rounded-full"
+                  src="https://i.pravatar.cc/150?img=1"
+                  alt=""
+                />
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm text-black">Jane Cooper</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-black">
+              jane.cooper@example.com
+            </td>
+            <td class="px-6 py-4 text-sm text-black whitespace-nowrap">
+              Active
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              Admin
+            </td>
+
+            <td class="px-6 py-4">
+              <div class="inline-flex">
+                <a href="#" class="text-gray-500 hover:text-indigo-900">
+                  <i class="fa-solid fa-pencil"></i>
+                </a>
+                <a
+                  href="#"
+                  class="ml-3 text-gray-500 hover:text-crimson"
+                  onClick="openModal('deleteUser')"
+                >
+                  <i class="fa-solid fa-trash-can"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          <!-- More rows... -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Deleting User-->
+<div
+  id="deleteUser"
+  class="fixed hidden z-50 inset-0 bg-black justify-center items-center overflow-y-auto h-full w-full px-4"
+>
+  <div class="relative shadow-xl rounded-xl bg-white max-w-md">
+    <div class="flex justify-end p-2">
+      <button
+        onclick="closeModal('deleteUser')"
+        type="button"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-crimson rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+      >
+        <i class="fa-solid fa-xmark fa-x py-2 pr-4"></i>
+      </button>
+    </div>
+
+    <div class="p-6 flex flex-col items-center">
+      <i class="fa-solid fa-triangle-exclamation fa-2xl text-crimson"></i>
+      <h3 class="text-xl font-normal text-gray-500 mt-6 mb-6">
+        Are you sure you want to delete this user?
+      </h3>
+      <div class="inline-flex">
+        <a
+          href="#"
+          onclick="closeModal('deleteUser')"
+          class="text-white bg-crimson hover:bg-crimson-dark focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center mr-2"
+        >
+          Yes, I'm sure
+        </a>
+        <a
+          href="#"
+          onclick="closeModal('deleteUser')"
+          class="text-gray-900 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-cyan-200 border border-gray-200 font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center"
+          data-modal-toggle="delete-user-modal"
+        >
+          No, cancel
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for Adding User-->
+<div
+  id="addUser"
+  class="flex border-b border-gray-900/10 pb-12 fixed hidden z-50 inset-0 bg-black justify-center items-center overflow-y-auto h-full w-full"
+>
+  <div
+    class="grid max-w-3xl w-full rounded-xl grid-cols-1 gap-x-6 gap-y-8 bg-white p-6"
+  >
+    <div class="flex justify-end items-center">
+      <div class="text-xl font-semibold">Add New User</div>
+      <button
+        onclick="closeModal('addUser')"
+        type="button"
+        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-crimson rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+      >
+        <i class="fa-solid fa-xmark fa-x py-2 pr-4"></i>
+      </button>
+    </div>
+    <div class="columns-2">
+      <div>
+        <label
+          for="first-name"
+          class="block text-xs font-medium leading-6 text-gray-500"
+          >Name</label
+        >
+        <div class="mt-1">
+          <input
+            type="text"
+            name="first-name"
+            id="first-name"
+            autocomplete="given-name"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+      <div>
+        <label
+          for="email"
+          class="block text-xs font-medium leading-6 text-gray-500"
+          >Email</label
+        >
+        <div class="mt-1">
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="columns-2">
+      <div>
+        <label
+          for="country"
+          class="block text-xs font-medium leading-6 text-gray-500"
+          >Role</label
+        >
+        <div class="mt-1">
+          <select
+            id="country"
+            name="country"
+            autocomplete="country-name"
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+          >
+            <option>IT Manager</option>
+            <option>IT Coop</option>
+            <option>IT Support Engineer</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="permission"
+          class="block text-xs font-medium leading-6 text-gray-500"
+          >Permission</label
+        >
+        <div class="mt-1">
+          <span class="isolate inline-flex rounded-md">
+            <button
+              type="button"
+              class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+            >
+              Admin
+            </button>
+            <button
+              type="button"
+              class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+            >
+              Regular
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center justify-end gap-x-6 py-4">
+      <button
+        type="button"
+        class="text-sm font-semibold leading-6 text-gray-900"
+        onClick="closeModal('addUser')"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="rounded-md bg-crimson px-5 py-2 text-sm font-semibold text-white shadow-sm hover:bg-crimson-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  window.openModal = function (modalId) {
+    document.getElementById(modalId).style.display = "flex";
+    document.getElementsByTagName("body")[0].classList.add("overflow-y-hidden");
+  };
+
+  window.closeModal = function (modalId) {
+    document.getElementById(modalId).style.display = "none";
+    document
+      .getElementsByTagName("body")[0]
+      .classList.remove("overflow-y-hidden");
+  };
+
+  // Close all modals when press ESC
+  document.onkeydown = function (event) {
+    event = event || window.event;
+    if (event.keyCode === 27) {
+      document
+        .getElementsByTagName("body")[0]
+        .classList.remove("overflow-y-hidden");
+      let modals = document.getElementsByClassName("modal");
+      Array.prototype.slice.call(modals).forEach((i) => {
+        i.style.display = "none";
+      });
+    }
+  };
+</script>
+{% endblock %}

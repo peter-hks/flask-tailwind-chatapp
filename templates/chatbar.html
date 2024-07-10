@@ -1,0 +1,250 @@
+<!-- Adding Google Fonts for improved typography -->
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+  .fa-solid {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+  }
+
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .typing-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+    animation: bounce 1.5s infinite ease-in-out;
+  }
+
+  .typing-indicator:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .typing-indicator:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .user-message,
+  .ai-message {
+    padding: 0.75rem 1rem 0.75rem 1rem;
+    border-radius: 16px;
+    line-height: 1.6;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+    max-width: 70%;
+  }
+
+  .user-row .user-message {
+    background-color: #e9e9e9;
+    color: black;
+    float: right;
+    text-align: right;
+    /* box-shadow: 0px 4px 12px rgba(0, 122, 255, 0.2); */
+    animation: slideInFromRight 0.4s ease;
+    height: 100%;
+    text-wrap: wrap;
+  }
+
+  .ai-row .ai-message {
+    background-color: #ba093e;
+    color: white;
+    float: left;
+    text-align: left;
+    /* box-shadow: 0px 4px 12px rgba(220, 20, 60, 0.2); */
+    animation: slideInFromLeft 0.4s ease;
+    height: 100%;
+  }
+
+  .ai-row img {
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .user-row,
+  .ai-row {
+    margin: 5px;
+  }
+
+  button:active {
+    transform: scale(0.95);
+  }
+
+  .highlight {
+    background-color: yellowgreen;
+    padding: 2px;
+    margin: -2px;
+    border-radius: 3px;
+    box-shadow: 0 0 1px #333;
+  }
+
+  .fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+  }
+
+  /* Add a clearfix to ensure proper float behavior */
+  .user-row::after,
+  .ai-row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  /* input[type="text"] {
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  input[type="text"]:focus {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  } */
+
+  .user-message:hover,
+  .ai-message:hover {
+    /* box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1); */
+    cursor: pointer;
+  }
+
+  /* input[type="text"]:focus {
+    box-shadow: 0px 0px 12px rgba(0, 0, 255, 0.2);
+    width: 100%;
+  } */
+
+  .chat-container {
+    height: 100%;
+    max-height: 100%;
+    @media (min-width: 768px) {
+      height: calc(100% - 7rem);
+    }
+  }
+
+  #chat-history {
+    height: calc(100% - 7rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 1.5rem;
+    max-height: calc(100% - 7rem) @media (min-width: 768px) {
+      height: 100%;
+      max-height: 100%;
+      margin-top: 0rem;
+    }
+  }
+</style>
+
+<div class="flex flex-col chat-container md:py-0">
+  <div
+    id="chat-history"
+    class="flex flex-col mx-6 md:mx-0 md:w-10/12 content-between md:place-self-center message-wrap"
+  ></div>
+  <form id="chat-form" action="/user-prompt" method="post">
+    <div class="md:py-0 my-6 sticky">
+      <label for="prompt" class="sr-only">prompt</label>
+      <div class="flex flex-row justify-center gap-x-3">
+        <input
+          type="text"
+          rows="5"
+          name="prompt"
+          id="prompt"
+          class="px-4 block w-8/12 rounded-md border-0 py-1.5 bg-gray-200 text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+          placeholder="Ask AgentAI a question..."
+        />
+        <button
+          type="submit"
+          class="inline-flex items-center rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        >
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#chat-form").submit(function (e) {
+      e.preventDefault();
+      var prompt = $("#prompt").val();
+      $("#chat-history").append(
+        "<div class='user-row'><div class='user-message'>" +
+          prompt +
+          "</div></div>"
+      );
+      $("#chat-history").scrollTop($("#chat-history")[0].scrollHeight);
+      $("#chat-history").append(
+        "<div class='ai-row'><div class='ai-message'><div class='ai-response'><div class='typing-indicator'></div><div class='typing-indicator'></div><div class='typing-indicator'></div></div></div></div>"
+      );
+      $("#chat-history").scrollTop($("#chat-history")[0].scrollHeight);
+      $.post("/user-prompt", { prompt: prompt }, function (data) {
+        // Add the fade-out class to start the fade-out transition
+        $(".ai-response:last").addClass("fade-out");
+
+        setTimeout(function () {
+          // Clear existing typing indicators
+          $(".ai-response:last").html("");
+
+          $(".ai-response:last").html(data.answer.replace(/\n/g, "<br>"));
+
+          // Remove fade-out and add fade-in class
+          $(".ai-response:last").removeClass("fade-out").addClass("fade-in");
+
+          $("#chat-history").scrollTop($("#chat-history")[0].scrollHeight);
+        }, 300); //match transition time with CSS
+
+        //Scroll to the latest message
+        console.log($("#chat-history")[0].scrollHeight); // Log to debug
+        // $('#chat-history').scrollTop($('#chat-history')[0].scrollHeight);
+      });
+      $("#prompt").val("");
+    });
+  });
+</script>
+
+<!-- Including Font Awesome for the AI icon -->
+<script
+  src="https://kit.fontawesome.com/a076d05399.js"
+  crossorigin="anonymous"
+></script>

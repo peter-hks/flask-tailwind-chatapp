@@ -1,0 +1,209 @@
+{% extends "ai_settings_layout.html" %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link href="../static/css/main.css" rel="stylesheet" />
+  </head>
+
+  {% block content %}
+  <script>
+    /**
+     * auto submit form on checkbox click
+     * @param {Event} event
+     * @returns {void}
+     */
+    function clickFn(event) {
+      const checkbox = event.currentTarget;
+      checkbox.value = checkbox.checked ? "ON" : "OFF";
+      event.currentTarget.closest("form").submit();
+    }
+  </script>
+
+  <div class="p-10 overflow-y-scroll gap-6 h-full flex flex-col y-full">
+    <div class="flex flex-row justify-between items-center">
+      <div>
+        <div class="text-2xl font-semibold text-crimson">
+          Article Structure Compliance
+        </div>
+        <div>
+          Customize the way AgentAI generates and displays content to suit your
+          preferances.
+        </div>
+      </div>
+      <button
+        id="addRow"
+        class="flex gap-x-3 bg-crimson hover:bg-crimson-dark items-center text-md text-white rounded-xl px-3 h-fit py-2"
+      >
+        <span class="fa-solid fa-plus fa-md"></span>
+        Add Row
+      </button>
+    </div>
+    <div class="flex flex-col gap-3">
+      <div class="grid grid-cols-3 gap-3">
+        <div class="text-sm text-semibold pl-6 text-gray-500">Rule Name</div>
+        <div class="text-sm text-semibold text-gray-500 col-span-2">
+          Rule Description
+        </div>
+      </div>
+      {% for config in current_settings %}
+      <section id="grid">
+        <form id="row" method="post" class="grid grid-cols-3 gap-3">
+          <div class="w-max flex flex-row content-center">
+            <button
+              id="move{{ loop.index }}"
+              type="submit"
+              class="text-transparent"
+            >
+              <i class="fa-solid fa-grip rotate-90"></i>
+            </button>
+            <textarea
+              id="name{{ loop.index }}"
+              name="key"
+              class="ml-2 w-full visible h-9 textarea block rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            >
+    <!-- 
+    <button id="move1" type="submit" class="text-transparent">
+      <i class="fa-solid fa-grip rotate-90"></i>
+    </button> -->
+
+    {% for config in current_settings %}
+    <section>
+      <form method="post" class="flex flex-row">
+        <div class="w-max flex flex-row pb-2 content-center widthscreen-25">
+          <button
+            id="move{{ loop.index }}"
+            type="submit"
+            class="text-transparent"
+          >
+            <i class="fa-solid fa-grip rotate-90"></i>
+          </button>
+          <textarea
+            id="name{{ loop.index }}"
+            name="key"
+            class="ml-2 flex-1 visible h-9 textarea block rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+          >
+{{ config.key }}</textarea
+            >
+          </div>
+          <div class="col-span-2 flex flex-row content-center w-full">
+            <textarea
+              id="description{{ loop.index }}"
+              class="visible w-full h-9 textarea block rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+              placeholder="{{ config.value }}"
+              name="value"
+            ></textarea>
+            <button id="edit{{ loop.index }}" type="submit" class="visible">
+              <i class="fa-solid fa-pencil ml-2" style="color: #767676"></i>
+            </button>
+            <button id="check{{ loop.index }}" type="submit" class="hidden">
+              <i
+                class="fa-regular fa-circle-check ml-2"
+                style="color: #767676"
+              ></i>
+            </button>
+            <input type="hidden" name="key_type" value="compliance-prompt" />
+            <button id="delete{{ loop.index }}" type="submit" name="delete">
+              <i class="fa-solid fa-trash-can ml-2" style="color: #767676"></i>
+            </button>
+          </div>
+        </form>
+      </section>
+      {% endfor %}
+    </div>
+          >
+        </div>
+        <div class="pl-2 flex flex-row pb-2 content-center widthscreen-75">
+          <textarea
+            id="description{{ loop.index }}"
+            class="flex-1 visible h-9 textarea block rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+            placeholder="{{ config.value }}"
+            name="value"
+          ></textarea>
+          <button id="edit{{ loop.index }}" class="visible">
+            <i class="fa-solid fa-pencil ml-2" style="color: #767676"></i>
+          </button>
+          <button id="check{{ loop.index }}" type="submit" class="hidden">
+            <i
+              class="fa-regular fa-circle-check ml-2"
+              style="color: #767676"
+            ></i>
+          </button>
+          <input type="hidden" name="key_type" value="compliance-prompt" />
+          <button id="delete{{ loop.index }}" type="submit" name="delete">
+            <i class="fa-solid fa-trash-can ml-2" style="color: #767676"></i>
+          </button>
+        </div>
+      </form>
+    </section>
+    {% endfor %}
+  </div>
+
+  <!--Condensed code using string literals below-->
+  <script>
+    for (let i = 0; i < "{{ current_settings | length }}"; i++) {
+      const _div = document.getElementById(`edit${i}`);
+      if (!_div) continue;
+      _div.addEventListener("click", function () {
+        document.getElementById(`edit${i}`).classList.add("hidden");
+        document.getElementById(`check${i}`).classList.remove("hidden");
+        document
+          .getElementById(`move${i}`)
+          .classList.remove("text-transparent");
+        document.getElementById(`move${i}`).classList.add("text-gray");
+      });
+      document
+        .getElementById(`check${i}`)
+        .addEventListener("click", function () {
+          document.getElementById(`check${i}`).classList.add("hidden");
+          document.getElementById(`edit${i}`).classList.remove("hidden");
+          document.getElementById(`move${i}`).classList.add("text-transparent");
+          document.getElementById(`move${i}`).classList.remove("text-gray");
+        });
+    }
+
+    /**
+     * adds autoexpand to a textarea
+     * @param {HTMLElement | string} textarea - textarea or `id` of `textarea` to autoexpand
+     * @param {int} limit - limit of the `textarea` height
+     * @returns {void}
+     * @example autoExpand("textarea", 200);
+     */
+    function autoExpand(textarea, limit = 200) {
+      if (typeof textarea === "string") {
+        textarea = document.getElementById(textarea);
+      }
+      textarea.oninput = function () {
+        textarea.style.height = "";
+        const height = Math.min(textarea.scrollHeight, limit);
+        textarea.style.height = `${height}px`;
+        adjustFollowingRows(textarea, height);
+      };
+    }
+
+    /**
+     * adjusts the height of the following rows
+     * @param {HTMLElement} textarea - textarea element
+     * @param {int} height - height of the textarea
+     * @returns {void}
+     */
+    function adjustFollowingRows(textarea, height) {
+      const changing_element = textarea.id.startsWith("name")
+        ? document.getElementById(textarea.id.replace("name", "description"))
+        : document.getElementById(textarea.id.replace("description", "name"));
+      if (!changing_element) return;
+      changing_element.style.height = `${height}px`;
+    }
+
+    for (const tarea of document.getElementsByTagName("textarea")) {
+      autoExpand(tarea);
+    }
+  </script>
+
+  {% endblock %}
+</html>

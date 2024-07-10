@@ -1,0 +1,159 @@
+<!-- Sidebar Component -->
+
+<head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <script src="./static/js/navMobile.js" defer></script>
+</head>
+<style>
+  .fa-solid {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+  }
+</style>
+<div class="flex flex-col h-fit md:h-full">
+  <section
+    class="sticky flex flex-col items-center justify-between p-4 h-fit md:h-full"
+  >
+    <div
+      class="flex grow flex-col justify-between overflow-y-auto px-3 md:pb-4 w-full"
+    >
+      <div class="flex flex-col gap-y-4">
+        <div class="flex justify-between">
+          <img
+            class="h-14 md:h-16 w-auto my-3"
+            src="static/images/HKSIT logo black.png"
+            alt="Harvard Kennedy School Information Technology"
+          />
+          <button id="hamburger-button" class="md:hidden visible">
+            <i class="text-2xl fa-solid fa-bars"></i>
+          </button>
+        </div>
+        <nav class="hidden w-full md:flex">
+          <ul role="list" class="space-y-4">
+            <li>
+              <a
+                href="chat"
+                class="border-transparent border-2 border-solid hover:text-crimson hover:bg-white hover:border-solid hover:border-crimson hover:border-2 group flex content-center gap-x-4 rounded-2xl p-2.5 px-6 text-base leading-6 font-semibold"
+              >
+                <div class="fa-solid fa-message flex align-middle"></div>
+                AgentAI
+              </a>
+            </li>
+            <li>
+              <a
+                href="chat_history"
+                class="text-black hover:text-crimson
+                              border-transparent border-2 border-solid
+                              hover:border-solid hover:border-crimson hover:border-2
+                              hover:bg-white group flex gap-x-4 rounded-2xl p-2.5 px-6
+                              text-base leading-6 font-semibold {{ 'active' if active_page =='chat_history' else ''}}
+                              active:bg-white active:text-crimson"
+              >
+                <span class="fa-regular fa-solid fa-clock-rotate-left"></span>
+                Chat History
+              </a>
+            </li>
+            <li class="invisible md:visible">
+              <a
+                href="account_management"
+                class="text-black hover:text-crimson border-transparent border-2 border-solid hover:border-solid hover:border-crimson hover:border-2 hover:bg-white group flex gap-x-4 rounded-2xl p-2.5 px-6 text-base text-nowrap leading-6 font-semibold"
+              >
+                <span class="fa-gear fa-solid"></span>
+                Account Management
+              </a>
+            </li>
+            <li class="invisible md:visible">
+              <a
+                href="ai_settings"
+                class="text-black hover:text-crimson border-transparent border-2 border-solid hover:border-solid hover:border-crimson hover:border-2 hover:bg-white group flex gap-x-4 rounded-2xl p-2.5 px-6 text-base text-nowrap leading-6 font-semibold"
+              >
+                <span class="fa-solid fa-user-shield"></span>
+                AI Settings
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- About and Logout/in Link -->
+      </div>
+      <div class="hidden md:flex md:flex-col">
+        <a
+          href="about"
+          class="text-black hover:text-crimson border-transparent border-2 border-solid group flex gap-x-4 rounded-2xl p-3 px-6 text-base leading-6 font-semibold"
+        >
+          About
+        </a>
+        <hr class="border-t-2 border-black" />
+        <div
+          class="text-black group flex justify-between gap-x-4 font-semibold p-3 px-6"
+        >
+          Logout
+          <span class="fa-solid fa-arrow-right-from-bracket"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section
+    id="mobile-menu"
+    class="z-10 absolute overflow-hidden hidden w-full h-full origin-top animate-open-menu flex-col bg-white text-5xl"
+  >
+    <!--
+    <button>
+      <i class="text-2xl fa-solid fa-xmark"></i>
+    </button>
+    -->
+    <nav
+      class="flex flex-col items-center py-28 h-full"
+      aria-label="mobile"
+    >
+    <div class="flex flex-col justify-between h-full w-full">
+      <div class="flex flex-col gap-8 w-full px-8">
+        <div class="flex flex-col">
+          <h2 class="text-3xl font-semibold text-crimson">Welcome</h2>
+          <h2 class="text-3xl font-semibold text-crimson">Name Name</h2>
+        </div>
+        <ul role="list" class="space-y-4 w-full">
+          <li>
+            <a
+              href="chat"
+              class="bg-gray-200 group flex content-center gap-x-6 rounded-2xl py-10 px-8 text-2xl leading-6 font-semibold"
+            >
+              <div class="fa-solid fa-message flex align-middle"></div>
+              AgentAI
+            </a>
+          </li>
+          <li>
+            <a
+              href="chat_history"
+              class="text-black bg-gray-200
+                        flex gap-x-6 rounded-2xl py-10 px-8
+                        text-2xl leading-6 font-semibold {{ 'active' if active_page =='chat_history' else ''}}
+                        active:bg-white active:text-crimson"
+            >
+              <span class="fa-regular fa-solid fa-clock-rotate-left"></span>
+              Chat History
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="flex flex-col items-center gap-4">
+        <a
+          href="about"
+          class="text-black hover:text-crimson border-transparent group flex gap-x-4 text-xl rounded-2xl p-3 px-8 text-base leading-6 font-semibold"
+        >
+          About
+          <span class="fa-solid fa-circle-info"></span>
+        </a>
+        <div
+          class="text-black group flex gap-x-4 text-xl font-semibold p-3 px-8"
+        >
+          Logout
+          <span class="fa-solid fa-arrow-right-from-bracket"></span>
+      </div>
+    </div>
+    </nav>
+  </section>
+</div>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link href="../static/css/main.css" rel="stylesheet" />
+  </head>
+  <body class="flex flex-col md:flex-row w-screen h-screen overflow-hidden">
+    <div class="md:w-fit w-full h-fit md:h-full">
+      {% include "sidebar.html" %}
+    </div>
+    <div class="md:w-full h-full md:h-auto md:m-5 overflow-hidden">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>

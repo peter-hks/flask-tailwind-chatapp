@@ -1,0 +1,43 @@
+<!--
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+<div class="flex items-start space-x-4">
+    <!-- Text Box -->
+    <div class="min-w-0 flex-1">
+        <form action="#" class="relative">
+            <div
+                class="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+                <label for="comment" class="sr-only" >Type here...</label>
+
+                <div class="ml-5 pr-10 word-break block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"> 
+                {{ prompt }}
+                </div>
+                <!-- ml-2 for indent on textbox, pr-10 for padding on right side of textbox so it's not cut off -->
+
+                <!-- Spacer element to match the height of the toolbar -->
+                <div class="py-2" aria-hidden="true">
+                    <!-- Matches height of button in toolbar (1px border + 36px content height) -->
+                    <div class="py-px">
+                        <div class="h-9"></div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <!-- Avatar Image -->
+    <div class="flex-shrink-0">
+        <img class="inline-block h-10 w-10 rounded-full"
+            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+    </div>
+</div>
+</form>

@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+  <link href="../static/css/main.css" rel="stylesheet" />
+</head>
+
+{% block content %}
+<style>
+  .fa-brands {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: right;
+  }
+</style>
+<div class="bg-white md:rounded-3xl h-full max-h-full flex flex-col">
+  <div
+    class="md:flex hidden border-b-2 border-gray-200 flex-row justify-between py-2 pr-6"
+  >
+    <div class="text-2xl font-semibold p-3 pl-6">About</div>
+  </div>
+  <div
+    id="about-box"
+    class="flex flex-col gap-4 py-6 px-8 overflow-y-auto max-h-full grow-0"
+  >
+    <div class="flex flex-col gap-2">
+      <h2 class="text-xl font-semibold">Development Team</h2>
+      <p>Meet the co-ops who have collaborated on the HKS AgentAI project.</p>
+    </div>
+    <ul role="list" class="grid md:grid-cols-3 gap-16 px-8">
+      <li class="flex flex-col items-center gap-2">
+        <h3 class="text-base font-semibold text-black">Ahnaf Inkiad</h3>
+        <div>
+          <p class="text-sm text-gray-600">
+            Lead Developer <br />
+            Co-op Fall 2023
+          </p>
+        </div>
+        <a href="https://www.linkedin.com/in/ahnaf-inkiad-630702182/">
+          <i class="text-xl fa-brands fa-linkedin"></i>
+        </a>
+        <img
+          class="h-32 w-32 rounded-full"
+          src="https://media.licdn.com/dms/image/D4E03AQF2DUJL0RZ5FA/profile-displayphoto-shrink_800_800/0/1677146203919?e=1723075200&v=beta&t=-eNBe28JdXfZJNP4ra-oVyHt8og47GpzRD1q3O5SRsE"
+        />
+      </li>
+      <li class="flex flex-col items-center gap-2">
+        <h3 class="text-base font-semibold text-black">Will MacGrath</h3>
+        <div>
+          <p class="text-sm text-gray-600">
+            Founding Developer <br />
+            Co-op Spring 2023
+          </p>
+        </div>
+        <a href="https://www.linkedin.com/in/willmacgrath/">
+          <i class="text-xl fa-brands fa-linkedin"></i>
+        </a>
+        <img
+          class="h-32 w-32 rounded-full"
+          src="https://media.licdn.com/dms/image/D4D03AQER2PtAo3A5gw/profile-displayphoto-shrink_800_800/0/1667525877435?e=1723075200&v=beta&t=SFRdnlUrl6f5WVECl1HFQbwqqeHIzuE_TPhU8aNj4PU"
+        />
+      </li>
+      <li class="flex flex-col items-center gap-2">
+        <h3 class="text-base font-semibold text-black">
+          Caroline Southard-Smith
+        </h3>
+        <div>
+          <p class="text-sm text-gray-600">
+            Founding Developer <br />
+            Co-op Spring 2023
+          </p>
+        </div>
+        <a href="https://www.linkedin.com/in/caroline-southard-smith/">
+          <i class="text-xl fa-brands fa-linkedin"></i>
+        </a>
+        <img
+          class="h-32 w-32 rounded-full"
+          src="https://media.licdn.com/dms/image/D4E03AQGb0z9y95Q_Hg/profile-displayphoto-shrink_800_800/0/1666461923254?e=1723075200&v=beta&t=3MCUeG6LESqjlOdjvh40Vq8uj3Hi51w0zNH9fhUCAyU"
+        />
+      </li>
+      <li class="flex flex-col items-center gap-2">
+        <h3 class="text-base font-semibold text-black">Johan Cho</h3>
+        <div>
+          <p class="text-sm text-gray-600">
+            Back-End Developer <br />
+            Co-op Spring 2024
+          </p>
+        </div>
+        <a href="https://www.linkedin.com/in/tandyy/">
+          <i class="text-xl fa-brands fa-linkedin"></i>
+        </a>
+        <img
+          class="h-32 w-32 rounded-full"
+          src="https://media.licdn.com/dms/image/D5603AQFf3UqEhrZRtA/profile-displayphoto-shrink_800_800/0/1707177149852?e=1723075200&v=beta&t=6NrnfU0fVOacdFbzmZ5FLTQHCpHdBIHNuC7p4t6uWVg"
+        />
+      </li>
+      <li class="flex flex-col items-center gap-2">
+        <h3 class="text-base font-semibold text-black">Rei Masuya</h3>
+        <div>
+          <p class="text-sm text-gray-600">
+            Front-End Developer <br />
+            Co-op Spring 2024
+          </p>
+        </div>
+        <a href="https://www.linkedin.com/in/rei-masuya/">
+          <i class="text-xl fa-brands fa-linkedin"></i>
+        </a>
+        <img
+          class="h-32 w-32 rounded-full"
+          src="https://media.licdn.com/dms/image/C4D03AQGGDCMyVe9oaw/profile-displayphoto-shrink_800_800/0/1663201360599?e=1723075200&v=beta&t=wyipPoegQpbLQtwJ7HxJ3rRntZkciZNqqfI3_qA8DO8"
+        />
+      </li>
+      <li class="flex flex-col items-center gap-2">
+        <h3 class="text-base font-semibold text-black">Nina Paprocki</h3>
+        <div>
+          <p class="text-sm text-gray-600">
+            Front-End Developer <br />
+            Co-op Spring 2024
+          </p>
+        </div>
+        <a href="https://www.linkedin.com/in/nina-paprocki/">
+          <i class="text-xl fa-brands fa-linkedin"></i>
+        </a>
+        <img
+          class="h-32 w-32 rounded-full"
+          src="https://media.licdn.com/dms/image/D4E35AQHNSh3FSLk1RQ/profile-framedphoto-shrink_800_800/0/1717162288417?e=1718046000&v=beta&t=ovrBD0v9Yk7RsfvBLS1v4KwianudAXdaQhAKWs9ZOow"
+        />
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
